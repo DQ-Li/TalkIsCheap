@@ -12,8 +12,8 @@
 function deepClone(target) {
     const map = new Map();
     function clone(target) {
-        if(isObject(target)){
-            let cloneTarget = isArray(target) ? [] : {};
+        if(typeof target === "object"){
+            let cloneTarget = target  instanceof Array ? [] : {};
             if(map.get(target)){
                 return map.get(target)
             }
@@ -28,3 +28,4 @@ function deepClone(target) {
     }
     return clone(target);
 }
+
