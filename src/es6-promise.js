@@ -1,101 +1,109 @@
-const PENDING = "pending";
-const RESOLVED = "resolved";
-const REJECTED = "rejected";
+const PENDING = 'PENDING'; // 进行中
+const FULFILLED = 'FULFILLED'; // 已成功
+const REJECTED = 'REJECTED'; // 已失败
 
 class MyPromise {
-    constructor(executor){
-        // executor 是一个执行器，进入会立即执行
-        // 并传入resolve和reject方法
-        executor(this.resolve, this.reject)
-    }
-    // 初始化状态
-    state = PENDING;
+    constructor(exector) {
+        // 初始化状态
+        this.status = PENDING; // 状态
+        this.value = undefined;
+        this.reason = undefined;
+        // Promise resolve时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+        this.onFulfilledCallbacks = [];
+        // Promise reject时的回调函数集，因为在Promise结束之前有可能有多个回调添加到它上面
+        this.onRejectedCallbacks = [];
 
-    // 用于保存 resolve 或者 rejected 传入的值
-    value = null;
-
-    // 用于保存 resolve 的回调函数
-    resolvedCallbacks = [];
-
-    // 用于保存 reject 的回调函数
-    rejectedCallbacks = [];
-
-    // 状态转变为 resolved 方法
-    resolve = (value) => {
-        // 判断传入元素是否为 Promise 值，如果是，则状态改变必须等待前一个状态改变后再进行改变
-        if (value instanceof MyPromise) {
-            return value.then(resolve, reject);
+        const resolve = value => {
+            // 只有进行中状态才能更改状态
+            if (this.status === PENDING) {
+                this.status = FULFILLED;
+                this.value = value;
+                // 成功态函数依次执行
+                this.onFulfilledCallbacks.forEach(fn => fn(this.value));
+            }
         }
 
-        // 保证代码的执行顺序为本轮事件循环的末尾
-        setTimeout(() => {
-            // 只有状态为 pending 时才能转变，
-            if (this.state === PENDING) {
-                // 修改状态
-                this.state = RESOLVED;
-
-                // 设置传入的值
-                this.value = value;
-
-                // 执行回调函数
-                this.resolvedCallbacks.forEach(callback => {
-                    callback(value);
-                });
+        const reject = reason => {
+            // 只有进行中状态才能更改状态
+            if (this.status === PENDING) {
+                this.status = REJECTED;
+                this.reason = reason;
+                // 失败态函数依次执行
+                this.onRejectedCallbacks.forEach(fn => fn(this.reason))
             }
-        }, 0);
+        }
+
+        try {
+            // 立即执行executor
+            // 把内部的resolve和reject传入executor，用户可调用resolve和reject
+            exector(resolve, reject);
+        } catch (e) {
+            // executor执行出错，把错误内容reject抛出去
+            reject(e);
+        }
     }
 
-    // 状态转变为 rejected 方法
-     reject = (value) => {
-        // 保证代码的执行顺序为本轮事件循环的末尾
-        setTimeout(() => {
-            // 只有状态为 pending 时才能转变
-            if (this.state === PENDING) {
-                // 修改状态
-                this.state = REJECTED;
-
-                // 设置传入的值
-                this.value = value;
-
-                // 执行回调函数
-                this.rejectedCallbacks.forEach(callback => {
-                    callback(value);
+    // onFulfilled  onRejected 为调用者传进来的 成功和失败的回调
+    then(onFulfilled, onRejected) {
+        // onFulfilled 和 onRejected应为函数
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
+        onRejected = typeof onRejected === 'function' ? onRejected :
+            reason => { throw new Error(reason instanceof Error ? reason.message : reason) }
+        // 保存this
+        const self = this;
+        return new Promise((resolve, reject) => {
+            // 如果上面的executor是一个异步的，执行then的时候 status一定是pending
+            if (self.status === PENDING) {
+                // 将调用者的回调包装后注册进promise的回调队列
+                self.onFulfilledCallbacks.push(() => {
+                    try {
+                        const result = onFulfilled(self.value);
+                        // then里面的回调如果是异步的promise，则等待异步执行完后，再进入new Promise的then中注册的回调
+                        // 如果是同步的，直接进入 new Promise 的then中注册的回调
+                        // 如果 result 是 Promise，result.then 也是 Promise
+                        result instanceof Promise ? result.then(resolve, reject) : resolve(result);
+                    } catch (e) {
+                        reject(e);
+                    }
                 });
+
+                self.onRejectedCallbacks.push(() => {
+                    // 以下同理
+                    try {
+                        const result = onRejected(self.reason);
+                        // 不同点：此时是reject
+                        result instanceof Promise ? result.then(resolve, reject) : reject(result);
+                    } catch (e) {
+                        reject(e);
+                    }
+                })
+                //如果executor是同步的， 则执行then的时候 status 为 resolved 或者 rejected
+            } else if (self.status === FULFILLED) {
+                // 如果promise1(此处即为this/self)的状态已经确定并且是resolved，我们调用 onFulfilled
+                // 因为考虑到有可能throw，所以我们将其包在try/catch块里
+                try {
+                    const result = onFulfilled(self.value);
+                    // 如果 onFulfilled 的返回值是一个Promise对象，直接取它的结果做为 new Promise 的结果
+                    // 否则，以它的返回值做为 new Promise 的结果
+                    result instanceof Promise ? result.then(resolve, reject) : resolve(result);
+                } catch (e) {
+                    // 如果出错，以捕获到的错误做为 new Promise 的结果
+                    reject(e);
+                }
+            } else if (self.status === REJECTED) {
+                try {
+                    const result = onRejected(self.reason);
+                    result instanceof Promise ? result.then(resolve, reject) : reject(result);
+                } catch (e) {
+                    reject(e);
+                }
             }
-        }, 0);
+        });
+    }
+
+    catch(onRejected) {
+        return this.then(null, onRejected);
     }
 
 }
 
-MyPromise.prototype.then = function(onResolved, onRejected) {
-    // 首先判断两个参数是否为函数类型，因为这两个参数是可选参数
-    onResolved =
-        typeof onResolved === "function"
-            ? onResolved
-            : function(value) {
-                return value;
-            };
-
-    onRejected =
-        typeof onRejected === "function"
-            ? onRejected
-            : function(error) {
-                throw error;
-            };
-
-    // 如果是等待状态，则将函数加入对应列表中
-    if (this.state === PENDING) {
-        this.resolvedCallbacks.push(onResolved);
-        this.rejectedCallbacks.push(onRejected);
-    }
-
-    // 如果状态已经凝固，则直接执行对应状态的函数
-
-    if (this.state === RESOLVED) {
-        onResolved(this.value);
-    }
-
-    if (this.state === REJECTED) {
-        onRejected(this.value);
-    }
-};
