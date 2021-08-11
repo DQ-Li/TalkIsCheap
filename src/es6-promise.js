@@ -51,7 +51,7 @@ class MyPromise {
             reason => { throw new Error(reason instanceof Error ? reason.message : reason) }
         // 保存this
         const self = this;
-        return new Promise((resolve, reject) => {
+        return new MyPromise((resolve, reject) => {
             // 如果上面的executor是一个异步的，执行then的时候 status一定是pending
             if (self.status === PENDING) {
                 // 将调用者的回调包装后注册进promise的回调队列
@@ -61,7 +61,7 @@ class MyPromise {
                         // then里面的回调如果是异步的promise，则等待异步执行完后，再进入new Promise的then中注册的回调
                         // 如果是同步的，直接进入 new Promise 的then中注册的回调
                         // 如果 result 是 Promise，result.then 也是 Promise
-                        result instanceof Promise ? result.then(resolve, reject) : resolve(result);
+                        result instanceof MyPromise ? result.then(resolve, reject) : resolve(result);
                     } catch (e) {
                         reject(e);
                     }
@@ -72,7 +72,7 @@ class MyPromise {
                     try {
                         const result = onRejected(self.reason);
                         // 不同点：此时是reject
-                        result instanceof Promise ? result.then(resolve, reject) : reject(result);
+                        result instanceof MyPromise ? result.then(resolve, reject) : reject(result);
                     } catch (e) {
                         reject(e);
                     }
@@ -85,7 +85,7 @@ class MyPromise {
                     const result = onFulfilled(self.value);
                     // 如果 onFulfilled 的返回值是一个Promise对象，直接取它的结果做为 new Promise 的结果
                     // 否则，以它的返回值做为 new Promise 的结果
-                    result instanceof Promise ? result.then(resolve, reject) : resolve(result);
+                    result instanceof MyPromise ? result.then(resolve, reject) : resolve(result);
                 } catch (e) {
                     // 如果出错，以捕获到的错误做为 new Promise 的结果
                     reject(e);
@@ -93,7 +93,7 @@ class MyPromise {
             } else if (self.status === REJECTED) {
                 try {
                     const result = onRejected(self.reason);
-                    result instanceof Promise ? result.then(resolve, reject) : reject(result);
+                    result instanceof MyPromise ? result.then(resolve, reject) : reject(result);
                 } catch (e) {
                     reject(e);
                 }

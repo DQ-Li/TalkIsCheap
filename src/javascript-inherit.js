@@ -20,6 +20,7 @@ function Child1() {
 }
 
 Child1.prototype = new Parent1();
+Child1.prototype.constructor = Child1;
 
 // 2.构造函数继承
 /*
