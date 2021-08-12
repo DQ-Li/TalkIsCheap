@@ -9,24 +9,22 @@
 *
 */
 
-function deepClone(target) {
-    const map = new Map();
-    function clone(target) {
-        if(typeof target === "object"){
-            let cloneTarget = target  instanceof Array ? [] : {};
-            if(map.get(target)){
-                return map.get(target)
-            }
-            map.set(target,cloneTarget);
-            for(const key in target){
-                cloneTarget[key] = target[key];
-            }
-            return cloneTarget;
-        }else {
-            return target;
-        }
+function deepClone (target) {
+  const map = new Map()
+  function clone (target) {
+    if (typeof target === 'object') {
+      const cloneTarget = target instanceof Array ? [] : {}
+      if (map.get(target)) {
+        return map.get(target)
+      }
+      map.set(target, cloneTarget)
+      for (const key in target) {
+        cloneTarget[key] = target[key]
+      }
+      return cloneTarget
+    } else {
+      return target
     }
-    return clone(target);
+  }
+  return clone(target)
 }
-
-

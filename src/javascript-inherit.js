@@ -10,17 +10,17 @@
 *   (3) 还有就是在创建子类的时候不能向父类传递参数
 * */
 
-function Parent1() {
-    this.name = 'parent';
-    this.sex = 'boy';
+function Parent1 () {
+  this.name = 'parent'
+  this.sex = 'boy'
 }
 
-function Child1() {
-    this.name = 'child';
+function Child1 () {
+  this.name = 'child'
 }
 
-Child1.prototype = new Parent1();
-Child1.prototype.constructor = Child1;
+Child1.prototype = new Parent1()
+Child1.prototype.constructor = Child1
 
 // 2.构造函数继承
 /*
@@ -35,12 +35,12 @@ Child1.prototype.constructor = Child1;
 *
 * */
 
-function Parent2(name) {
-    this.name = name;
+function Parent2 (name) {
+  this.name = name
 }
 
-function Child2(name) {
-    Parent2.call(this,'child');
+function Child2 (name) {
+  Parent2.call(this, 'child')
 }
 
 // 3.组合继承
@@ -55,20 +55,20 @@ function Child2(name) {
 *
 * */
 
-function Parent3(name) {
-    this.name = name;
+function Parent3 (name) {
+  this.name = name
 }
 
 Parent3.prototype.sayName = function () {
-    console.log(this.name);
-};
-
-function Child3(name, age) {
-    Parent3.call(this, name); // 第二次调用 Parent()，可以传参
-    this.age = age;
+  console.log(this.name)
 }
-Child3.prototype = new Parent3(); // 第一次调用 Parent()，继承父类型的原型的属性和方法 以及 复用
-Child3.prototype.constructor = Child3;
+
+function Child3 (name, age) {
+  Parent3.call(this, name) // 第二次调用 Parent()，可以传参
+  this.age = age
+}
+Child3.prototype = new Parent3() // 第一次调用 Parent()，继承父类型的原型的属性和方法 以及 复用
+Child3.prototype.constructor = Child3
 
 // 4.原型式继承
 /*
@@ -80,13 +80,13 @@ Child3.prototype.constructor = Child3;
 * */
 
 const friendship1 = {
-    name:'unnamed',
-    friends:['Amy','Ben','Tom']
-};
+  name: 'unnamed',
+  friends: ['Amy', 'Ben', 'Tom']
+}
 
-let uzi1 = Object.create(friendship);
-uzi1.name = 'Uzi';
-uzi1.friends.push('Peter');
+const uzi1 = Object.create(friendship)
+uzi1.name = 'Uzi'
+uzi1.friends.push('Peter')
 
 // 5.寄生式继承
 /*
@@ -96,20 +96,20 @@ uzi1.friends.push('Peter');
 *   没有办法实现函数的复用；这一点与借用构造函数模式类似
 * */
 
-function creator(origin) {
-    let clone = Object.create(origin);
-    clone.sayHi = function() {
-        console.log('Hello Parasitic Inheritance');
-    };
-    return clone;
+function creator (origin) {
+  const clone = Object.create(origin)
+  clone.sayHi = function () {
+    console.log('Hello Parasitic Inheritance')
+  }
+  return clone
 }
 
 const friendship2 = {
-    name:'unnamed',
-    friends:['Amy','Ben','Tom']
-};
+  name: 'unnamed',
+  friends: ['Amy', 'Ben', 'Tom']
+}
 
-let uzi2 = creator(friendship2);
+const uzi2 = creator(friendship2)
 
 // 6.寄生组合式继承
 /*
@@ -118,25 +118,25 @@ let uzi2 = creator(friendship2);
 * 寄生式组合继承的方式是使用父类型的原型的副本来作为子类型的原型，这样就避免了创建不必要的属性
 *
 * */
-function inherit(children,parent) {
-    let prototype = Object.create(parent.prototype);
-    prototype.constructor = children;
-    children.prototype = prototype;
+function inherit (children, parent) {
+  const prototype = Object.create(parent.prototype)
+  prototype.constructor = children
+  children.prototype = prototype
 }
 
-function Parent4(name) {
-    this.name = name;
+function Parent4 (name) {
+  this.name = name
 }
 Parent4.prototype.sayName = function () {
-    console.log(this.name);
-};
-
-function Child4(name,age) {
-    Parent4.call(this, name);
-    this.age = age;
+  console.log(this.name)
 }
 
-inherit(Child4,Parent4);
+function Child4 (name, age) {
+  Parent4.call(this, name)
+  this.age = age
+}
+
+inherit(Child4, Parent4)
 
 // 7.class继承
 /*
@@ -144,18 +144,18 @@ inherit(Child4,Parent4);
 *
 * */
 class Parent5 {
-    constructor(name){
-        this.name = name;
-    }
-    getName() {
-        console.log(this.name);
-    }
+  constructor (name) {
+    this.name = name
+  }
+
+  getName () {
+    console.log(this.name)
+  }
 }
 
-class Child5 extends Parent5{
-    constructor(name){
-        super(name);
-        this.sex = 'boy';
-    }
+class Child5 extends Parent5 {
+  constructor (name) {
+    super(name)
+    this.sex = 'boy'
+  }
 }
-

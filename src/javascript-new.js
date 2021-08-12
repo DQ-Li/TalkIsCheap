@@ -9,14 +9,13 @@
 *
 * */
 
-function _new(constructor,...arg) {
-    if(typeof constructor !== "function"){
-        throw new Error("type error");
-    }
+function _new (constructor, ...arg) {
+  if (typeof constructor !== 'function') {
+    throw new Error('type error')
+  }
 
-    let obj = Object.create(constructor);
-    let result = constructor.apply(obj,arg);
+  const obj = Object.create(constructor)
+  const result = constructor.apply(obj, arg)
 
-    return (typeof result === "object") ? result : obj;
+  return (typeof result === 'object') ? result : obj
 }
-
