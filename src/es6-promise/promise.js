@@ -14,6 +14,10 @@ class MyPromise {
     this.onRejectedCallbacks = []
 
     const resolve = value => {
+      // 如果当前value是promise实例，递归调用then
+      if (value instanceof MyPromise) {
+        return value.then(resolve, reject)
+      }
       // 只有进行中状态才能更改状态
       if (this.status === PENDING) {
         this.status = FULFILLED
@@ -103,5 +107,22 @@ class MyPromise {
 
   catch (onRejected) {
     return this.then(null, onRejected)
+  }
+
+  finally (callback) {
+    return this.then(
+      // callback 可能是个异步函数
+      value => MyPromise.resolve(callback()).then(() => value),
+      reason => MyPromise.resolve(callback()).then(() => { throw reason })
+    )
+  }
+
+  static resolve (value) {
+    return new MyPromise((resolve, reject) => resolve(value))
+  }
+
+  // reject直接就是抛错，不用递归
+  static reject (reason) {
+    return new MyPromise((resolve, reject) => reject(reason))
   }
 }

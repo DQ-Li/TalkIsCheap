@@ -16,8 +16,16 @@
 
 #### 2. ES6
 
-- Promise 以及 Promise.then
+- Promise 以及 Promise.prototype.then(), Promise.prototype.finally() 和 Promise.prototype.catch()
+  - Promise.prototype.finally()
+    - 由于无法知道`promise`的最终状态，所以`finally`的回调函数中不接收任何参数，它仅用于无论最终结果如何都要执行的情况。
+    - 与`Promise.resolve(2).then(() => {}, () => {})` （resolved的结果为`undefined`）不同，`Promise.resolve(2).finally(() => {}) `，resolved的结果为 2。
   - [promise原理—一步一步实现一个promise](https://juejin.cn/post/6844903831881400333)
   - [32 个手撕 JS 让你彻底摆脱初级前端](https://mp.weixin.qq.com/s/eO18fhQ81CBMgQYBKyO8jg)
-- Promise.all
+- Promise.all()
   - [致全网那些所谓的手写Promise.all](https://zhuanlan.zhihu.com/p/362648760?utm_source=wechat_session&utm_medium=social&utm_oi=637909224051707904)
+- Promise.allSettled()
+  - [「全」手写Promise的相关方法](https://juejin.cn/post/6844904020029472776#heading-10)
+- Promise.any()
+- Promise.race()
+

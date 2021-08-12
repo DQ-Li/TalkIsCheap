@@ -8,35 +8,34 @@
 *   6. 空 promises 参数， resolve返回空数组
 *
 * */
-function promiseAll (promises) {
+function promiseAll (iterators) {
+  const promises = Array.from(iterators)
+  const num = promises.length
+  // 保存回调结果的数组
+  const resultList = new Array(num)
+  // 计数器，标记 fulfilled 的实例个数
+  let fulfilledNum = 0
+
   // all 方法也返回一个promise对象
   return new Promise((resolve, reject) => {
-    // 保存回调结果的数组
-    const result = []
-    // 当前迭代的对象的下标
-    let itelatorIndex = 0
-    // 累加器，用来判断执行方法队列是否执行完成
-    let count = 0
-    for (const item of promises) {
-      // 返回结果的下标
-      let resultIndex = itelatorIndex
-      itelatorIndex += 1
+    // 处理空 promises 的情况
+    if (num === 0) {
+      resolve(resultList)
+    }
+
+    promises.forEach((item, index) => {
       // 包一层，以兼容非promise的情况
-      Promise.resolve(item).then((value) => {
-        result[resultIndex] = value
-        count += 1
-        if (count === itelatorIndex) {
-          resolve(result)
-        }
-      })
+      // 如果 Promise.resolve 参数是一个 promise，那么将返回这个 promise
+      Promise.resolve(item)
+        .then((value) => {
+          resultList[index] = value
+          if (++fulfilledNum === num) {
+            resolve(resultList)
+          }
+        })
         .catch(reason => {
           reject(reason)
         })
-    }
-
-    // 处理空 promises 的情况
-    if (itelatorIndex === 0) {
-      resolve(result)
-    }
+    })
   })
 }
