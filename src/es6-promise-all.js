@@ -17,10 +17,9 @@ function promiseAll (promises) {
     let itelatorIndex = 0
     // 累加器，用来判断执行方法队列是否执行完成
     let count = 0
-    // 返回结果的下标
-    let resultIndex
     for (const item of promises) {
-      resultIndex = itelatorIndex
+      // 返回结果的下标
+      let resultIndex = itelatorIndex
       itelatorIndex += 1
       // 包一层，以兼容非promise的情况
       Promise.resolve(item).then((value) => {
