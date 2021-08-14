@@ -13,6 +13,7 @@
 - 7 种继承方式
   - [JavaScript Guidebook - 原型链](https://tsejx.github.io/javascript-guidebook/object-oriented-programming/inheritance/prototype-chain)
 - new 的实现
+- 函数柯里化
 
 #### 2. ES6
 
