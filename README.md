@@ -14,6 +14,9 @@
   - [JavaScript Guidebook - 原型链](https://tsejx.github.io/javascript-guidebook/object-oriented-programming/inheritance/prototype-chain)
 - new 的实现
 - 函数柯里化
+- 防抖
+- 节流
+  - [第 3 题：什么是防抖和节流？有什么区别？如何实现？ #5](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/5)
 
 #### 2. ES6
 
