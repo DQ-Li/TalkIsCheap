@@ -17,6 +17,9 @@
 - 防抖
 - 节流
   - [第 3 题：什么是防抖和节流？有什么区别？如何实现？ #5](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/5)
+- call/apply
+- bind
+    - [如何手写call、apply、bind？](https://segmentfault.com/a/1190000018832498)
 
 #### 2. ES6
 
