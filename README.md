@@ -12,7 +12,7 @@
 
 - 7 种继承方式
   - [JavaScript Guidebook - 原型链](https://tsejx.github.io/javascript-guidebook/object-oriented-programming/inheritance/prototype-chain)
-- new 的实现
+- new
 - 函数柯里化
 - 防抖
 - 节流
@@ -20,6 +20,8 @@
 - call/apply
 - bind
     - [如何手写call、apply、bind？](https://segmentfault.com/a/1190000018832498)
+- instanceof
+    - [JS总结笔记（@神三元灵魂之问上）](https://juejin.cn/post/6844904078254817288#heading-5)
 
 #### 2. ES6
 
@@ -35,4 +37,8 @@
   - [「全」手写Promise的相关方法](https://juejin.cn/post/6844904020029472776#heading-10)
 - Promise.any()
 - Promise.race()
+
+#### 3. vue
+- 发布订阅的通用实现
+    - [【vue系列】从发布订阅模式解读，到vue响应式原理实现（包含vue3.0）](https://juejin.cn/post/6854573219970564104#heading-3)
 
