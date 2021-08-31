@@ -22,6 +22,7 @@
     - [如何手写call、apply、bind？](https://segmentfault.com/a/1190000018832498)
 - instanceof
     - [JS总结笔记（@神三元灵魂之问上）](https://juejin.cn/post/6844904078254817288#heading-5)
+- Object.is
 
 #### 2. ES6
 
