@@ -8,10 +8,10 @@ function myInstanceof(left, right) {
     // getPrototypeOf 是 Object 对象自带的一个方法，能够拿到参数的原型对象
     let proto = Object.getPrototypeOf(left)
     while (true){
-        //找到相同的原型对象
-        if(proto === right.prototype) return true
         //查找到尽头，还没找到
         if(proto === null ) return false
+        //找到相同的原型对象
+        if(proto === right.prototype) return true
         proto = Object.getPrototypeOf(proto)
     }
 }
