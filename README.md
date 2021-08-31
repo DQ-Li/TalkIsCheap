@@ -23,6 +23,8 @@
 - instanceof
     - [JS总结笔记（@神三元灵魂之问上）](https://juejin.cn/post/6844904078254817288#heading-5)
 - Object.is
+- Array.prototype.flat()
+
 
 #### 2. ES6
 
