@@ -16,11 +16,11 @@ var Event = (function() { // 声明一个全局对象Event
     }
 
     // 发布消息
-    const trigger = (eventType, ...rest) => {
+    const trigger = (eventType, ...args) => {
         const fns = handlers[eventType]
 
         if(fns && fns.length > 0) {
-            fns.forEach(item => item(...rest))
+            fns.forEach(item => item(...args))
         }
     }
 
@@ -38,10 +38,24 @@ var Event = (function() { // 声明一个全局对象Event
         }
     }
 
+    // once 注册一个只能执行一次的事件
+    const once = (eventType, fn) => {
+        if(!handlers[eventType]) {
+            handlers[eventType] = []
+        }
+        const that = this
+        function myOnce(...args) {
+            fn(...args)
+            that.remove(eventType,myOnce)
+        }
+        handlers[eventType].push(myOnce)
+    }
+
     return {
         listen,
         trigger,
-        remove
+        remove,
+        once
     }
 })();
 
