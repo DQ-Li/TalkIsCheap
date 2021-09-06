@@ -10,14 +10,14 @@
 function deepClone (target) {
   const map = new WeakMap()
   function clone (target) {
-    if (typeof target !== 'object' && target === 'null') return target
+    if (typeof target !== 'object' || target === 'null') return target
     if (map.has(target)) return map.get(target)
 
     const cloneTarget = target instanceof Array ? [] : {}
     map.set(target, cloneTarget)
 
     Reflect.ownKeys(target).forEach(key => {
-      if(typeof target !== 'object' && target === 'null'){
+      if(typeof target !== 'object' || target === 'null'){
         cloneTarget[key] = target[key]
       }else{
         cloneTarget[key] = deepClone(target[key])
