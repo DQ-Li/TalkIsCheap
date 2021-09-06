@@ -1,30 +1,31 @@
 // 递归遍历对象，解决循环引用问题
 
 /*
-* 解决循环引用问题，我们需要一个存储容器存放当前对象和拷贝对象的对应关系
-* 适合用key-value的数据结构进行存储，也就是map
-* 当进行拷贝当前对象的时候，我们先查找存储容器是否已经拷贝过当前对象
-* 如果已经拷贝过，那么直接把返回，没有的话则是继续拷贝
-*
-*
+* 1.是不是基本数据类型 直接返回，其他需要创建新的结构
+* 2.循环引用的问题  weakmap
+* 3.symbol的问题   用  Reflect.ownKeys() 获取所有的键值
+*   Reflect.ownKeys()返回数组，包含对象自身的所有属性，不管属性名是Symbol或字符串，也不管是否可枚举
 */
 
 function deepClone (target) {
-  const map = new Map()
+  const map = new WeakMap()
   function clone (target) {
-    if (typeof target === 'object') {
-      const cloneTarget = target instanceof Array ? [] : {}
-      if (map.get(target)) {
-        return map.get(target)
-      }
-      map.set(target, cloneTarget)
-      for (const key in target) {
+    if (typeof target !== 'object' && target === 'null') return target
+    if (map.has(target)) return map.get(target)
+
+    const cloneTarget = target instanceof Array ? [] : {}
+    map.set(target, cloneTarget)
+
+    Reflect.ownKeys(target).forEach(key => {
+      if(typeof target !== 'object' && target === 'null'){
         cloneTarget[key] = target[key]
+      }else{
+        cloneTarget[key] = deepClone(target[key])
       }
-      return cloneTarget
-    } else {
-      return target
-    }
+    })
+    return cloneTarget
+
   }
   return clone(target)
 }
+
