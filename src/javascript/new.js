@@ -14,7 +14,7 @@ function _new (constructor, ...arg) {
     throw new Error('type error')
   }
 
-  const obj = Object.create(constructor)
+  const obj = Object.create(constructor.prototype)
   const result = constructor.apply(obj, arg)
 
   return (typeof result === 'object') ? result : obj
