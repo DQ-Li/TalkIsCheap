@@ -49,3 +49,13 @@
 - jsonp
     - [如何手写一个Jsonp方法](https://blog.csdn.net/weixin_40483654/article/details/106434990)
 
+#### 4. 树
+- 建立二叉搜索树
+    - [JS实现二叉搜索树](https://blog.csdn.net/weixin_45752307/article/details/113348405)
+- 根据中序+先序/后序 建树
+    - [LeetCode 105](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/jian-dan-gan-jing-de-xie-fa-by-dokomzhu-25oi/)
+- 二叉树的镜像
+
+#### 5. 栈
+- 用两个栈模拟队列
+    - [剑指 Offer 09. 用两个栈实现队列](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/solution/yong-liang-ge-zhan-shi-xian-yi-ge-dui-li-qmbm/)
