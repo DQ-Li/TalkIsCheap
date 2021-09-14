@@ -27,13 +27,32 @@ function partition(arr,low,high) {
     return low;
 }
 
-function quickSort(arr,low,high) {
+function quickSort(arr) {
+    let low = 0,
+        high = arr.length - 1;
     if(low < high){
-        let pivot = partition(arr,low,high)
-        quickSort(arr, low, pivot - 1);
-        quickSort(arr, pivot + 1, high);
+        let index = partition(arr,low,high);
+        quickSort(arr, low, index - 1);
+        quickSort(arr, index + 1, high);
     }
     return arr;
 }
 
+// 取前k大的数，时间复杂度是O(N)，空间复杂度是O(N)
+function getLeastNumbers(arr, k) { //  0<= k <= arr.length - 1
+    if (k >= arr.length) return arr;
+    let low = 0,
+        high = arr.length - 1;
+    let index = partition(arr, low, high);
+    while (index !== k) {
+        if (index < k) {
+            low = index + 1;
+            index = partition(arr, low, high);
+        } else if (index > k) {
+            high = index - 1;
+            index = partition(arr, low, high);
+        }
+    }
 
+    return arr.slice(0,k);
+};

@@ -16,7 +16,6 @@
 function shellSort(arr) {
     let len = arr.length;
     let gap = Math.floor(len / 2);
-    let temp;
     while (gap >= 1){
         for(let i = gap; i < arr.length; i++){
             for(let j = i; j - gap >= 0; j = j - gap){ // j=i，表示当前要处理的元素，往前比较
