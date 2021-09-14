@@ -27,9 +27,7 @@ function partition(arr,low,high) {
     return low;
 }
 
-function quickSort(arr) {
-    let low = 0,
-        high = arr.length - 1;
+function quickSort(arr,low,high) {
     if(low < high){
         let index = partition(arr,low,high);
         quickSort(arr, low, index - 1);
@@ -55,4 +53,5 @@ function getLeastNumbers(arr, k) { //  0<= k <= arr.length - 1
     }
 
     return arr.slice(0,k);
-};
+}
+
