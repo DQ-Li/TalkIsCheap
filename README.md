@@ -48,7 +48,8 @@
     - 虽然两种模式都存在订阅者和发布者（具体观察者可认为是订阅者、具体目标可认为是发布者），但是观察者模式是由具体目标调度的，而发布/订阅模式是统一由调度中心调的，所以观察者模式的订阅者与发布者之间是存在依赖的，而发布/订阅模式则不会。
 - jsonp
     - [如何手写一个Jsonp方法](https://blog.csdn.net/weixin_40483654/article/details/106434990)
-
+- 图片懒加载
+  - [IntersectionObserver实现图片懒加载（滚动动画）](https://juejin.cn/post/6844903930183303181)
 #### 4. 树
 - 建立二叉搜索树
     - [JS实现二叉搜索树](https://blog.csdn.net/weixin_45752307/article/details/113348405)
