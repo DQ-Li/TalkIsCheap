@@ -17,7 +17,7 @@ function deepClone (target) {
     map.set(target, cloneTarget)
 
     Reflect.ownKeys(target).forEach(key => {
-      if(typeof target !== 'object' || target === 'null'){
+      if(typeof target[key] !== 'object' || target[key] === 'null'){
         cloneTarget[key] = target[key]
       }else{
         cloneTarget[key] = deepClone(target[key])
