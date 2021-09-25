@@ -16,7 +16,7 @@
 - 函数柯里化
 - 防抖
 - 节流
-  - [第 3 题：什么是防抖和节流？有什么区别？如何实现？ #5](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/5)
+  - [ES6 JS实现节流防抖](https://blog.csdn.net/qq_33763827/article/details/107704640)
 - call/apply
 - bind
     - [如何手写call、apply、bind？](https://segmentfault.com/a/1190000018832498)
@@ -24,6 +24,8 @@
     - [JS总结笔记（@神三元灵魂之问上）](https://juejin.cn/post/6844904078254817288#heading-5)
 - Object.is
 - Array.prototype.flat()
+- 用setTimeout实现setInterval
+  - [用setTimeout和clearTimeout简单实现setInterval与clearInterval](https://juejin.cn/post/6844903839934447629#heading-0)
 
 
 #### 2. ES6
@@ -70,4 +72,7 @@
 - 归并排序
     - [[20190306] 排序算法](https://www.yuque.com/ericlee/fontend/grk42m#9fe9c6eb)
 - 堆排序
+
+#### 7. 算法题
+- 求两个日期中间的有效日期
     

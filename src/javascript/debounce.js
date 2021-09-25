@@ -7,23 +7,23 @@
 
 function debounce (fn, delay = 500) {
   // 创建一个标记用来存放定时器的返回值
-  let timeout = null
-  return function () {
+  let timer = null;
+  return (...args) => {
     // 每当用户输入的时候把前一个 setTimeout clear 掉
-    clearTimeout(timeout)
+    if(timer) clearTimeout(timer);
     // 然后又创建一个 setTimeout，重新计算时间
-    timeout = setTimeout(() => {
-      fn.apply(this, arguments)
-    }, delay)
-  }
+    timer = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
 }
 
 // 使用
 function sayHi () {
-  console.log('防抖成功')
+  console.log('防抖成功');
 }
 
-const inp = document.getElementById('inp')
-const testFn = debounce(sayHi, 1000)
+const inp = document.getElementById('inp');
+const testFn = debounce(sayHi, 1000);
 // addEventListener 可以使 testFn 里的this指向绑定的元素
-inp.addEventListener('click', testFn)
+inp.addEventListener('click', testFn);
