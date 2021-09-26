@@ -4,7 +4,7 @@
 *
 * */
 
-function rangeDay(day1, day2){
+function rangeday(day1, day2){
     const startDay = new Date(day1).getTime();
     const endDay = new Date(day2).getTime();
     const range =  endDay - startDay;
@@ -18,4 +18,4 @@ function rangeDay(day1, day2){
     return result;
 }
 
-console.log(rangeDay('2021-02-26', '2021-03-03'));
+console.log(rangeday('2021-02-26', '2021-03-03'));
