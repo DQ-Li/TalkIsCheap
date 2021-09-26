@@ -30,6 +30,8 @@
   - [原生JAVASCRIPT操作cookie方法](https://blog.csdn.net/alokka/article/details/79472846)
 - ajax
   - [ajax、axios、fetch的区别](https://juejin.cn/post/6844904036232069127)
+- 对象构造树形结构
+  - [JavaScript 构造树形结构的一种高效算法](https://www.cnblogs.com/lzkwin/p/12143458.html)
 #### 2. ES6
 
 - Promise 以及 Promise.prototype.then(), Promise.prototype.finally() 和 Promise.prototype.catch()
