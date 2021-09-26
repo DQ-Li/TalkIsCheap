@@ -28,7 +28,8 @@
   - [用setTimeout和clearTimeout简单实现setInterval与clearInterval](https://juejin.cn/post/6844903839934447629#heading-0)
 - js设置/获取/删除cookie
   - [原生JAVASCRIPT操作cookie方法](https://blog.csdn.net/alokka/article/details/79472846)
-
+- ajax
+  - [ajax、axios、fetch的区别](https://juejin.cn/post/6844904036232069127)
 #### 2. ES6
 
 - Promise 以及 Promise.prototype.then(), Promise.prototype.finally() 和 Promise.prototype.catch()
@@ -53,8 +54,7 @@
     - [如何手写一个Jsonp方法](https://blog.csdn.net/weixin_40483654/article/details/106434990)
 - 图片懒加载
   - [IntersectionObserver实现图片懒加载（滚动动画）](https://juejin.cn/post/6844903930183303181)
-- ajax
-  - [ajax、axios、fetch的区别](https://juejin.cn/post/6844904036232069127)
+
 #### 4. 树
 - 建立二叉搜索树
     - [JS实现二叉搜索树](https://blog.csdn.net/weixin_45752307/article/details/113348405)
