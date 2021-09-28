@@ -32,6 +32,7 @@
   - [ajax、axios、fetch的区别](https://juejin.cn/post/6844904036232069127)
 - 对象构造树形结构
   - [JavaScript 构造树形结构的一种高效算法](https://www.cnblogs.com/lzkwin/p/12143458.html)
+- 原生js对元素的拖拽和放下
 #### 2. ES6
 
 - Promise 以及 Promise.prototype.then(), Promise.prototype.finally() 和 Promise.prototype.catch()

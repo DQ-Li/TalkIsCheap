@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+            position: absolute; /* 开启绝对定位 */
+        }
+    </style>
+</head>
+<body>
+
+<div id="box"></div>
+
+<script>
+    /*
+    * 页面内有一个正方形元素，实现对其拖拽和放下
+    *
+    * 元素x = 现在鼠标x - 原来鼠标x + 原来元素x
+    * 元素y = 现在鼠标y - 原来鼠标y + 原来元素y
+    */
+
+    let box = document.querySelector('#box');
+    let startX,startY; // 鼠标按下时，在元素内的偏移量
+    let flag = false; // 设置标记位，当鼠标按下时，才计算移动距离
+
+    document.addEventListener('mousedown',(e)=>{
+        if(e.target === box){
+            flag = true;
+            let el = box.getBoundingClientRect();
+            startX = e.clientX - el.left;
+            startY = e.clientY - el.top;
+        }
+    });
+
+    document.addEventListener('mousemove',(e)=>{
+        if(flag){
+            box.style.left = (e.clientX - startX) + 'px'; // 修改元素位置
+            box.style.top = (e.clientY - startY) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup',(e)=>{
+        flag = false;
+    });
+
+</script>
+</body>
+</html>
