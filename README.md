@@ -33,6 +33,8 @@
 - 对象构造树形结构
   - [JavaScript 构造树形结构的一种高效算法](https://www.cnblogs.com/lzkwin/p/12143458.html)
 - 原生js对元素的拖拽和放下
+- compose函数
+  - [js高级进阶之compose函数和pipe函数](https://blog.csdn.net/weixin_40073115/article/details/103842925)
 #### 2. ES6
 
 - Promise 以及 Promise.prototype.then(), Promise.prototype.finally() 和 Promise.prototype.catch()
